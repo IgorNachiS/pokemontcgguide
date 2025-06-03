@@ -1,58 +1,70 @@
-Pokémon TCG Guide
-📱 Sobre o App
-Aplicativo móvel React Native para fãs do Pokémon Trading Card Game (TCG) com:
+# Pokémon TCG Guide
 
-Busca de cartas Pokémon TCG
+## 📱 Sobre o App
 
-Gerenciamento de lista de desejos
+Aplicativo móvel em **React Native** para fãs do Pokémon Trading Card Game (TCG) com:
 
-Autenticação de usuário
+* 🔍 Busca de cartas Pokémon TCG
+* ⭐ Gerenciamento de lista de desejos
+* 🔐 Autenticação de usuário
+* 👤 Perfil personalizado
 
-Perfil personalizado
+## ✨ Funcionalidades
 
-✨ Funcionalidades
-🔒 Autenticação
-Login com Firebase
+### 🔒 Autenticação
 
-Gerenciamento de perfil
+* Login com Firebase
+* Gerenciamento de perfil
 
-🃏 Cartas Pokémon
-Busca avançada de cartas
+### 🃏 Cartas Pokémon
 
-Visualização detalhada
+* Busca avançada de cartas
+* Visualização detalhada
+* Favoritos
 
-Favoritos
+### 🛒 Lista de Compras
 
-🛒 Lista de Compras
-Adicionar/remover cartas
+* Adicionar/remover cartas
+* Organizar por prioridade
 
-Organizar por prioridade
+### 🗺️ Navegação
 
-🗺️ Navegação
-Menu lateral (drawer)
+* Menu lateral (*drawer*)
+* Navegação intuitiva
 
-Navegação intuitiva
+## 🛠️ Instalação
 
-🛠️ Instalação
-Pré-requisitos
-Node.js v18+
+### Pré-requisitos
 
-Expo CLI (npm install -g expo-cli)
+* Node.js v18+
+* Expo CLI:
 
-Conta no Firebase
+  ```bash
+  npm install -g expo-cli
+  ```
+* Conta no Firebase
 
-Passo a Passo
+### Passo a Passo
+
 Clone o repositório:
 
-git clone https://github.com/seu-usuario/pokemon-tcg-app.git
+```bash
+git clone https://github.com/IgorNachiS/pokemontcgguide
 cd pokemon-tcg-app
+```
 
 Instale as dependências:
 
-npm install # ou yarn install
+```bash
+npm install
+# ou
+yarn install
+```
 
-Configure o Firebase: Crie um arquivo firebaseConfig.js na raiz do projeto com suas credenciais do Firebase:
+Configure o Firebase:
+Crie um arquivo `firebaseConfig.js` na raiz do projeto com suas credenciais do Firebase:
 
+```js
 // firebaseConfig.js
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
@@ -70,17 +82,22 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+```
 
-🚀 Como Executar
+## 🚀 Como Executar
+
+```bash
 expo start
+```
 
-Escaneie o QR code com o aplicativo Expo Go (dispositivo físico) ou pressione:
+Escaneie o QR code com o aplicativo **Expo Go** (dispositivo físico) ou pressione:
 
-a para Android Emulator
+* `a` para Android Emulator
+* `i` para iOS Simulator
 
-i para iOS Simulator
+## 📂 Estrutura de Arquivos
 
-📂 Estrutura de Arquivos
+```
 .
 ├── src/
 │   ├── assets/          # Ícones e imagens
@@ -94,46 +111,15 @@ i para iOS Simulator
 │   └── utils/           # Utilitários
 ├── App.js               # Entrada principal
 └── firebaseConfig.js    # Configuração do Firebase
+```
 
-📦 Dependências Principais
-Pacote
+## 📦 Dependências Principais
 
-Versão
-
-Uso
-
-react-native
-
-0.72+
-
-Framework base
-
-expo
-
-~48.0.0
-
-Plataforma Expo
-
-@react-navigation
-
-^6.x
-
-Navegação
-
-firebase
-
-^9.0+
-
-Autenticação e banco
-
-axios
-
-^1.0+
-
-Requisições HTTP
-
-nativewind
-
-^2.0+
-
-Estilização
+| Pacote            | Versão   | Uso                  |
+| ----------------- | -------- | -------------------- |
+| react-native      | 0.72+    | Framework base       |
+| expo              | \~48.0.0 | Plataforma Expo      |
+| @react-navigation | ^6.x     | Navegação            |
+| firebase          | ^9.0+    | Autenticação e banco |
+| axios             | ^1.0+    | Requisições HTTP     |
+| nativewind        | ^2.0+    | Estilização          |
