@@ -6,24 +6,68 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "newArchEnabled": true,
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.igor.pokemontcg",
+      "deploymentTarget": "15.1",
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "Permite acessar fotos para upload de imagens",
+        "NSCameraUsageDescription": "Permite usar a câmera para tirar fotos"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "package": "com.igor.pokemontcg",
+      "versionCode": 1,
+      "permissions": [
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.CAMERA"
+      ]
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "config": {
+        "firebase": {
+          "apiKey": "AIzaSyA7NKKJ_4vSS2LwiabXfkU65gBYmVTw6Y8",
+          "authDomain": "pokemontcg-app-623d7.firebaseapp.com",
+          "projectId": "pokemontcg-app-623d7"
+        }
+      }
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "deploymentTarget": "15.1",
+            "useFrameworks": "static"
+          },
+          "android": {
+            "compileSdkVersion": 33,
+            "targetSdkVersion": 33,
+            "buildToolsVersion": "33.0.0"
+          }
+        }
+      ],
+      "@react-native-firebase/app",
+      "expo-asset"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "pokemontcg-app-623d7"
+      }
     }
   }
 }
