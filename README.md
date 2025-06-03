@@ -50,7 +50,7 @@ Clone o repositório:
 
 ```bash
 git clone https://github.com/IgorNachiS/pokemontcgguide
-cd pokemon-tcg-app
+cd PokemonTCGApp
 ```
 
 Instale as dependências:
