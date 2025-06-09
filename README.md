@@ -50,7 +50,7 @@ Clone o repositório:
 
 ```bash
 git clone https://github.com/IgorNachiS/pokemontcgguide
-cd PokemonTCGApp
+cd pokemontcgguide
 ```
 
 Instale as dependências:
@@ -87,7 +87,7 @@ export const db = getFirestore(app);
 ## 🚀 Como Executar
 
 ```bash
-expo start
+npx expo start --offline
 ```
 
 Escaneie o QR code com o aplicativo **Expo Go** (dispositivo físico) ou pressione:
