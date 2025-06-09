@@ -1,4 +1,3 @@
-// src/screens/CardDetailScreen.js
 import React, { useState, useEffect, useCallback } from 'react';
 import {
     View, Text, Image, ScrollView, StyleSheet, TouchableOpacity,

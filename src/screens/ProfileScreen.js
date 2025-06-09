@@ -1,8 +1,7 @@
-// src/screens/ProfileScreen.js
 import React, { useState, useEffect } from 'react';
 import {
   View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView, ActivityIndicator, Platform, StatusBar,
-  Animated, Easing // Importar Animated e Easing
+  Animated, Easing
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -13,9 +12,8 @@ import { PokemonTheme } from '../theme/PokemonTheme';
 const ProfileScreen = ({ navigation }) => {
   const [currentUser, setCurrentUser] = useState(auth.currentUser);
   const [isLoading, setIsLoading] = useState(true);
-  const [rotateAnim] = useState(new Animated.Value(0)); // Estado para a animação
+  const [rotateAnim] = useState(new Animated.Value(0));
 
-  // Animação da Pokéball
   const rotateInterpolate = rotateAnim.interpolate({
     inputRange: [0, 1],
     outputRange: ['0deg', '360deg']
@@ -42,7 +40,7 @@ const ProfileScreen = ({ navigation }) => {
     if (auth.currentUser && isLoading) {
         setIsLoading(false);
     }
-    animatePokeball(); // Inicia a animação ao montar o componente
+    animatePokeball();
     return () => unsubscribe();
   }, [isLoading]);
 
@@ -78,14 +76,13 @@ const ProfileScreen = ({ navigation }) => {
       <LinearGradient colors={[PokemonTheme.colors.background, PokemonTheme.colors.border]} style={styles.gradientBackground}>
         <StatusBar barStyle="dark-content" backgroundColor={PokemonTheme.colors.background} />
         <ScrollView contentContainerStyle={styles.scrollContainer}>
-          {/* Header do perfil com gradiente e pokeball */}
           <LinearGradient
             colors={[PokemonTheme.colors.headerGradientStart, PokemonTheme.colors.headerGradientEnd]}
             style={styles.profileHeader}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
           >
-            <Animated.Image // Usando Animated.Image diretamente
+            <Animated.Image
               source={require('../../assets/pokeball.png')}
               style={[styles.profilePokeballIcon, { transform: [{ rotate: rotateInterpolate }] }]}
             />

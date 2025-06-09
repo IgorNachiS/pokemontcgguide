@@ -26,48 +26,45 @@ export const PokemonTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    // Cores primárias baseadas no tema clássico Pokémon (vermelho e azul)
-    primary: '#3B4CCA', // Azul escuro vibrante (Pokébola)
-    background: '#F0F0F0', // Fundo claro para a maioria das telas
-    card: '#FFFFFF', // Cor de fundo para cards e elementos brancos
-    text: '#1A1A1A', // Cor principal do texto (quase preto)
-    secondaryText: '#666666', // Cor para textos secundários
-    placeholderText: '#999999', // Cor para texto de placeholder em inputs
-    border: '#E0E0E0', // Cor de borda
-    notification: '#CC0000', // Vermelho para notificações/erros (mais intenso)
-    accent: '#FFDE00', // Amarelo vibrante (Pokébola)
-    success: '#4CAF50', // Verde para sucesso
-    warning: '#FF9800', // Laranja para avisos
+    primary: '#3B4CCA',
+    background: '#F0F0F0',
+    card: '#FFFFFF',
+    text: '#1A1A1A',
+    secondaryText: '#666666',
+    placeholderText: '#999999',
+    border: '#E0E0E0',
+    notification: '#CC0000',
+    accent: '#FFDE00',
+    success: '#4CAF50',
+    warning: '#FF9800',
 
-    // Gradientes baseados no App.js de referência
-    headerGradientStart: '#E53935', // Vermelho escuro para cabeçalhos
-    headerGradientEnd: '#C62828',   // Vermelho mais escuro para cabeçalhos
-    cardGradientStart: '#FFFFFF',   // Branco para cards de lista
-    cardGradientEnd: '#F5F5F5',     // Cinza claro para cards de lista
-    modalHeaderGradientStart: '#E53935', // Vermelho para cabeçalho do modal
-    modalHeaderGradientEnd: '#C62828',   // Vermelho mais escuro para cabeçalho do modal
-    detailScreenGradientStart: '#3a1c71', // Gradiente de tela de detalhes (roxo)
-    detailScreenGradientMid: '#d76d77',   // Meio do gradiente (rosa)
-    detailScreenGradientEnd: '#ffaf7b',   // Fim do gradiente (laranja)
-    loginGradientStart: '#3B4CCA', // Azul para tela de login
-    loginGradientEnd: '#000000',   // Preto para tela de login
-    profileGradientStart: '#3B4CCA', // Azul para tela de perfil
-    profileGradientEnd: '#000000',   // Preto para tela de perfil
-    shoppingListGradientStart: '#FFCB05', // Amarelo para lista de compras
-    shoppingListGradientEnd: '#FF905A',   // Laranja para lista de compras
+    headerGradientStart: '#E53935',
+    headerGradientEnd: '#C62828',
+    cardGradientStart: '#FFFFFF',
+    cardGradientEnd: '#F5F5F5',
+    modalHeaderGradientStart: '#E53935',
+    modalHeaderGradientEnd: '#C62828',
+    detailScreenGradientStart: '#3a1c71',
+    detailScreenGradientMid: '#d76d77',
+    detailScreenGradientEnd: '#ffaf7b',
+    loginGradientStart: '#3B4CCA',
+    loginGradientEnd: '#000000',
+    profileGradientStart: '#3B4CCA',
+    profileGradientEnd: '#000000',
+    shoppingListGradientStart: '#FFCB05',
+    shoppingListGradientEnd: '#FF905A',
 
-    // Cores de fundo para inputs e elementos interativos
     inputBackground: '#F0F0F0',
     inputBorder: '#D0D0D0',
-    toggleActive: '#E53935', // Cor para switch ativo
-    toggleInactive: '#CCCCCC', // Cor para switch inativo
+    toggleActive: '#E53935',
+    toggleInactive: '#CCCCCC',
     sliderThumb: '#E53935',
     sliderTrack: '#DDDDDD',
-    tabInactiveBackground: 'rgba(255,255,255,0.2)', // Abas de filtro inativas
-    tabActivePokemon: '#B19CD9', // Roxo claro para Pokémon
-    tabActiveTrainers: '#81C784', // Verde claro para Trainers
-    tabActiveEnergy: '#FFD740', // Amarelo para Energy
-    tabActiveBuyList: '#FFB6C1', // Rosa claro para Buy List
+    tabInactiveBackground: 'rgba(255,255,255,0.2)',
+    tabActivePokemon: '#B19CD9',
+    tabActiveTrainers: '#81C784',
+    tabActiveEnergy: '#FFD740',
+    tabActiveBuyList: '#FFB6C1',
   },
   fonts: configureFonts({ config: fontConfig }),
   pokemon: {
@@ -89,7 +86,7 @@ export const PokemonTheme = {
     header: {
       fontSize: 32,
       fontWeight: 'bold',
-      color: '#FFFFFF', // Cor do texto do cabeçalho
+      color: '#FFFFFF',
       textShadowColor: 'rgba(0,0,0,0.2)',
       textShadowOffset: { width: 1, height: 1 },
       textShadowRadius: 2,

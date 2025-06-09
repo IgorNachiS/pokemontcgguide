@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { LinearGradient } from 'expo-linear-gradient'; // Importar LinearGradient
+import { LinearGradient } from 'expo-linear-gradient';
 import { PokemonTheme } from '../theme/PokemonTheme';
 
 const CardItem = ({ card, onPress, collectionStatus }) => {
@@ -12,7 +12,7 @@ const CardItem = ({ card, onPress, collectionStatus }) => {
     <TouchableOpacity
       onPress={onPress}
       activeOpacity={0.7}
-      style={styles.touchableContainer} // Novo estilo para o TouchableOpacity
+      style={styles.touchableContainer}
     >
       <LinearGradient
         colors={[PokemonTheme.colors.cardGradientStart, PokemonTheme.colors.cardGradientEnd]}
@@ -62,26 +62,26 @@ const CardItem = ({ card, onPress, collectionStatus }) => {
 
 const styles = StyleSheet.create({
   touchableContainer: {
-    marginBottom: 12, // Espaçamento entre os itens na lista
-    marginHorizontal: 20, // Margem horizontal para alinhar com o design do App.js
+    marginBottom: 12,
+    marginHorizontal: 20,
     borderRadius: 15,
-    overflow: 'hidden', // Garante que o gradiente e a sombra respeitem o borderRadius
-    ...PokemonTheme.shadows.card, // Aplicando sombra do tema
+    overflow: 'hidden',
+    ...PokemonTheme.shadows.card,
   },
   container: {
     flexDirection: 'row',
     padding: 15,
-    borderLeftWidth: 4, // Mantido para a cor do tipo
-    minHeight: 112, // Altura mínima para consistência
-    alignItems: 'center', // Centraliza verticalmente o conteúdo
+    borderLeftWidth: 4,
+    minHeight: 112,
+    alignItems: 'center',
   },
   image: {
     width: 80,
     height: 112,
     borderRadius: 5,
     marginRight: 15,
-    borderWidth: 1, // Adicionado borda para a imagem
-    borderColor: PokemonTheme.colors.border, // Cor da borda da imagem
+    borderWidth: 1,
+    borderColor: PokemonTheme.colors.border,
   },
   infoContainer: {
     flex: 1,
@@ -89,16 +89,16 @@ const styles = StyleSheet.create({
   },
   name: {
     ...PokemonTheme.textVariants.cardTitle,
-    marginBottom: 3, // Espaçamento ajustado
+    marginBottom: 3,
   },
   set: {
     ...PokemonTheme.textVariants.cardSubtitle,
-    marginBottom: 3, // Espaçamento ajustado
+    marginBottom: 3,
   },
   metaContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 5, // Espaçamento superior para separar do set
+    marginTop: 5,
   },
   typeBadge: {
     borderRadius: 12,

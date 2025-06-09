@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react'; // Adicionado useEffect
-import { View, ActivityIndicator, StyleSheet, Text, Animated, Easing } from 'react-native'; // Importar Animated e Easing
+import React, { useState, useEffect } from 'react';
+import { View, ActivityIndicator, StyleSheet, Text, Animated, Easing } from 'react-native';
 import { PokemonTheme } from '../theme/PokemonTheme';
 
 export const LoadingIndicator = () => {
-  const [rotateAnim] = useState(new Animated.Value(0)); // Estado para a animação
+  const [rotateAnim] = useState(new Animated.Value(0));
 
-  // Animação da Pokéball
   const rotateInterpolate = rotateAnim.interpolate({
     inputRange: [0, 1],
     outputRange: ['0deg', '360deg']
@@ -23,12 +22,12 @@ export const LoadingIndicator = () => {
   };
 
   useEffect(() => {
-    animatePokeball(); // Inicia a animação ao montar o componente
+    animatePokeball();
   }, []);
 
   return (
     <View style={styles.container}>
-      <Animated.Image // Usando Animated.Image diretamente
+      <Animated.Image
         source={require('../../assets/pokeball.png')}
         style={[styles.loadingIcon, { transform: [{ rotate: rotateInterpolate }] }]}
       />
@@ -44,7 +43,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: PokemonTheme.colors.background,
   },
-  loadingIcon: { // Estilo para a pokebola no loading
+  loadingIcon: {
     width: 100,
     height: 100,
     marginBottom: 16,

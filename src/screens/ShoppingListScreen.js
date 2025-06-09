@@ -1,9 +1,8 @@
-// src/screens/ShoppingListScreen.js
 import React, { useState, useEffect } from 'react';
 import {
     View, Text, StyleSheet, SafeAreaView, FlatList, TouchableOpacity,
     Image, Alert, TextInput, Platform, StatusBar, ActivityIndicator,
-    Animated, Easing // Importar Animated e Easing
+    Animated, Easing
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -12,14 +11,12 @@ import { collection, addDoc, onSnapshot, query, where, doc, deleteDoc, updateDoc
 import { PokemonTheme } from '../theme/PokemonTheme';
 
 const ShoppingListScreen = ({ navigation }) => {
-  // Estados da tela
   const [shoppingList, setShoppingList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [newItemName, setNewItemName] = useState('');
   const userId = auth.currentUser?.uid;
-  const [rotateAnim] = useState(new Animated.Value(0)); // Estado para a animação
+  const [rotateAnim] = useState(new Animated.Value(0));
 
-  // Animação da Pokéball
   const rotateInterpolate = rotateAnim.interpolate({
     inputRange: [0, 1],
     outputRange: ['0deg', '360deg']
@@ -37,7 +34,6 @@ const ShoppingListScreen = ({ navigation }) => {
   };
 
   useEffect(() => {
-    // Se não houver usuário, não faz nada e para o carregamento
     if (!userId) {
       setIsLoading(false);
       setShoppingList([]);
@@ -66,7 +62,7 @@ const ShoppingListScreen = ({ navigation }) => {
       setIsLoading(false);
     });
 
-    animatePokeball(); // Inicia a animação ao montar o componente
+    animatePokeball();
     return () => unsubscribe();
   }, [userId]);
 
@@ -145,21 +141,19 @@ const ShoppingListScreen = ({ navigation }) => {
     <SafeAreaView style={styles.safeArea}>
       <LinearGradient colors={[PokemonTheme.colors.background, PokemonTheme.colors.border]} style={styles.gradientBackground}>
         <StatusBar barStyle="dark-content" backgroundColor={PokemonTheme.colors.background} />
-        {/* Cabeçalho da tela */}
         <LinearGradient
           colors={[PokemonTheme.colors.headerGradientStart, PokemonTheme.colors.headerGradientEnd]}
           style={styles.header}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 0 }}
         >
-          <Animated.Image // Usando Animated.Image diretamente
+          <Animated.Image
             source={require('../../assets/pokeball.png')}
             style={[styles.pokeballIcon, { transform: [{ rotate: rotateInterpolate }] }]}
           />
           <Text style={styles.title}>Lista de Compras</Text>
         </LinearGradient>
 
-        {/* Container para adicionar novo item */}
         <View style={styles.addItemContainer}>
           <View style={styles.inputWrapper}>
             <Icon name="plus-circle-outline" size={24} color={PokemonTheme.colors.accent} style={styles.inputIcon} />
@@ -177,7 +171,6 @@ const ShoppingListScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
-        {/* Lista de compras ou mensagem de lista vazia */}
         {shoppingList.length === 0 ? (
           <View style={styles.emptyListContainer}>
             <Icon name="cart-remove" size={80} color={PokemonTheme.colors.placeholderText} />

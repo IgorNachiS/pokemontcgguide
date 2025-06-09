@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'; // Adicionado useEffect
-import { View, Text, TouchableOpacity, StyleSheet, Animated, Easing } from 'react-native'; // Importar Animated e Easing
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Animated, Easing } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useAuth } from '../hooks/useAuth';
@@ -8,9 +8,8 @@ import { PokemonTheme } from '../theme/PokemonTheme';
 
 const CustomDrawer = ({ navigation }) => {
   const { user } = useAuth();
-  const [rotateAnim] = useState(new Animated.Value(0)); // Estado para a animação
+  const [rotateAnim] = useState(new Animated.Value(0));
 
-  // Animação da Pokéball
   const rotateInterpolate = rotateAnim.interpolate({
     inputRange: [0, 1],
     outputRange: ['0deg', '360deg']
@@ -28,7 +27,7 @@ const CustomDrawer = ({ navigation }) => {
   };
 
   useEffect(() => {
-    animatePokeball(); // Inicia a animação ao montar o componente
+    animatePokeball();
   }, []);
 
   const handleLogout = async () => {
@@ -55,7 +54,7 @@ const CustomDrawer = ({ navigation }) => {
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 0 }}
       >
-        <Animated.Image // Usando Animated.Image diretamente
+        <Animated.Image
           source={require('../../assets/pokeball.png')}
           style={[styles.pokeballIcon, { transform: [{ rotate: rotateInterpolate }] }]}
         />
@@ -107,7 +106,7 @@ const styles = StyleSheet.create({
     ...PokemonTheme.shadows.header,
     alignItems: 'center',
   },
-  pokeballIcon: { // Estilo para a pokebola no header
+  pokeballIcon: {
     width: 50,
     height: 50,
     marginBottom: 10,

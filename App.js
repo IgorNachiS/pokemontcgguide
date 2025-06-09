@@ -10,7 +10,6 @@ import { PaperProvider } from 'react-native-paper';
 import { StatusBar } from 'expo-status-bar';
 import { PokemonTheme } from './src/theme/PokemonTheme';
 
-// Telas
 import LoginScreen from './src/screens/LoginScreen';
 import DashboardScreen from './src/screens/DashboardScreen';
 import CardDetailScreen from './src/screens/CardDetailScreen';

@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import {
   View, Text, FlatList, Image, TouchableOpacity,
   StyleSheet, SafeAreaView, StatusBar, Platform,
-  Dimensions, Animated, Easing // Importar Animated e Easing
+  Dimensions, Animated, Easing
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useCards } from '../hooks/useCards';
 import { auth } from '../../firebaseConfig';
 import { signOut } from 'firebase/auth';
-import { PokemonTheme } from '../theme/PokemonTheme'; // Importando o tema
+import { PokemonTheme } from '../theme/PokemonTheme';
 
 const { width } = Dimensions.get('window');
 const CARD_WIDTH = width / 2 - 24;
@@ -17,9 +17,8 @@ const CARD_WIDTH = width / 2 - 24;
 const DashboardScreen = ({ navigation }) => {
   const { cards, loading, error, refetch } = useCards();
   const [refreshing, setRefreshing] = useState(false);
-  const [rotateAnim] = useState(new Animated.Value(0)); // Estado para a animação
+  const [rotateAnim] = useState(new Animated.Value(0));
 
-  // Animação da Pokéball
   const rotateInterpolate = rotateAnim.interpolate({
     inputRange: [0, 1],
     outputRange: ['0deg', '360deg']
@@ -37,7 +36,7 @@ const DashboardScreen = ({ navigation }) => {
   };
 
   useEffect(() => {
-    animatePokeball(); // Inicia a animação ao montar o componente
+    animatePokeball();
   }, []);
 
   const handleRefresh = async () => {
@@ -72,13 +71,12 @@ const DashboardScreen = ({ navigation }) => {
 
   return (
     <LinearGradient
-      colors={[PokemonTheme.colors.background, PokemonTheme.colors.border]} // Fundo claro consistente
+      colors={[PokemonTheme.colors.background, PokemonTheme.colors.border]}
       style={styles.container}
     >
       <SafeAreaView style={styles.safeArea}>
         <StatusBar barStyle="dark-content" backgroundColor={PokemonTheme.colors.background} />
 
-        {/* Header */}
         <LinearGradient
           colors={[PokemonTheme.colors.headerGradientStart, PokemonTheme.colors.headerGradientEnd]}
           style={styles.header}
@@ -86,7 +84,7 @@ const DashboardScreen = ({ navigation }) => {
           end={{ x: 1, y: 0 }}
         >
           <View style={styles.headerContent}>
-            <Animated.Image // Usando Animated.Image diretamente
+            <Animated.Image
               source={require('../../assets/pokeball.png')}
               style={[styles.pokeballIcon, { transform: [{ rotate: rotateInterpolate }] }]}
             />
@@ -97,10 +95,9 @@ const DashboardScreen = ({ navigation }) => {
           </TouchableOpacity>
         </LinearGradient>
 
-        {/* Content */}
         {loading ? (
           <View style={styles.loadingContainer}>
-            <Animated.Image // Usando Animated.Image diretamente para o loading
+            <Animated.Image
               source={require('../../assets/pokeball.png')}
               style={[styles.loadingIcon, { transform: [{ rotate: rotateInterpolate }] }]}
             />
@@ -156,7 +153,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  pokeballIcon: { // Estilo para a pokebola no header
+  pokeballIcon: {
     width: 40,
     height: 40,
     marginRight: 10,
@@ -203,7 +200,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  loadingIcon: { // Estilo para a pokebola no loading
+  loadingIcon: {
     width: 100,
     height: 100,
   },

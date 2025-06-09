@@ -9,16 +9,13 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Picker } from '@react-native-picker/picker';
 import { PokemonTheme } from '../theme/PokemonTheme';
-import CardItem from '../components/CardItem';
 
-// Configuração de animação para Android corrigida
 if (Platform.OS === 'android') {
   if (typeof UIManager.setLayoutAnimationEnabledExperimental === 'function') {
     UIManager.setLayoutAnimationEnabledExperimental(true);
   }
 }
 
-// Constantes para os filtros
 const POKEMON_TYPES = ['Grass', 'Fire', 'Water', 'Lightning', 'Psychic', 'Fighting', 'Colorless', 'Darkness', 'Metal', 'Dragon', 'Fairy'];
 const SUPERTYPES = ['Pokémon', 'Trainer', 'Energy'];
 const SUBTYPES_POKEMON = ['Basic', 'Stage 1', 'Stage 2', 'V', 'VMAX', 'VSTAR', 'EX', 'GX', 'BREAK', 'Restored', 'LEGEND', 'Radiant'];
@@ -53,6 +50,10 @@ const AdvancedSearchScreen = ({ navigation }) => {
   const [searchAttempted, setSearchAttempted] = useState(false);
   const [rotateAnim] = useState(new Animated.Value(0));
 
+  const [page, setPage] = useState(1);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [hasMore, setHasMore] = useState(false);
+
   const rotateInterpolate = rotateAnim.interpolate({
     inputRange: [0, 1],
     outputRange: ['0deg', '360deg']
@@ -72,7 +73,7 @@ const AdvancedSearchScreen = ({ navigation }) => {
   const fetchAllSets = useCallback(async () => {
     setIsLoadingSets(true);
     try {
-      const response = await fetch('https://api.pokemontcg.io/v2/sets');
+      const response = await fetch('https://api.pokemontcg.io/v2/sets', { headers: { 'X-Api-Key': '4ae3c2ac-cd50-4029-abcb-120be975891f' } });
       const data = await response.json();
       setAllSets(data.data.sort((a, b) => new Date(b.releaseDate) - new Date(a.releaseDate)));
     } catch (e) {
@@ -119,17 +120,17 @@ const AdvancedSearchScreen = ({ navigation }) => {
     setSearchResults([]);
     setError(null);
     setSearchAttempted(false);
-    setShowFilters(true); // Garante que os filtros voltem a aparecer ao resetar
+    setShowFilters(true);
   };
 
   const executeSearch = async () => {
     setSearchAttempted(true);
     setError(null);
     setIsLoading(true);
-    setSearchResults([]); // Limpa resultados anteriores antes de uma nova busca
+    setSearchResults([]);
+    setPage(1);
 
     let queryParts = [];
-
     if (filters.searchTerm.trim()) queryParts.push(`name:"*${filters.searchTerm.trim()}*"`);
     if (filters.selectedType) queryParts.push(`types:${filters.selectedType}`);
     if (filters.selectedSupertype) queryParts.push(`supertype:${filters.selectedSupertype}`);
@@ -156,36 +157,88 @@ const AdvancedSearchScreen = ({ navigation }) => {
     }
 
     const queryString = queryParts.join(' ');
-    let allFetchedCards = [];
-    let page = 1;
-    let totalCount = 0;
-    const pageSize = 250; // Máximo permitido pela API
+    const pageSize = 50;
 
     try {
-      do {
-        const url = `https://api.pokemontcg.io/v2/cards?q=${encodeURIComponent(queryString)}&page=${page}&pageSize=${pageSize}`;
-        const response = await fetch(url);
-        const data = await response.json();
+      const url = `https://api.pokemontcg.io/v2/cards?q=${encodeURIComponent(queryString)}&page=1&pageSize=${pageSize}`;
+      const response = await fetch(url, { headers: { 'X-Api-Key': '4ae3c2ac-cd50-4029-abcb-120be975891f' } });
+      const data = await response.json();
 
-        if (data.data && data.data.length > 0) {
-          allFetchedCards = [...allFetchedCards, ...data.data];
-          totalCount = data.totalCount; // O totalCount é retornado na primeira página
-          page++;
-        } else {
-          // Não há mais dados ou a primeira página já está vazia
-          break;
-        }
-      } while (allFetchedCards.length < totalCount); // Continua buscando enquanto houver mais cartas
+      if (data.data && data.data.length > 0) {
+        setSearchResults(data.data);
+        setHasMore(data.page * data.pageSize < data.totalCount);
+      } else {
+        setSearchResults([]);
+        setHasMore(false);
+      }
 
-      setSearchResults(allFetchedCards);
       LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-      setShowFilters(false); // Minimiza os filtros após a busca
+      setShowFilters(false);
     } catch (err) {
       console.error("Erro ao executar busca: ", err);
       Alert.alert("Erro", `Falha ao buscar: ${err.message}`);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleLoadMore = async () => {
+    if (isLoadingMore || !hasMore) {
+      return;
+    }
+
+    setIsLoadingMore(true);
+    const nextPage = page + 1;
+
+    let queryParts = [];
+    if (filters.searchTerm.trim()) queryParts.push(`name:"*${filters.searchTerm.trim()}*"`);
+    if (filters.selectedType) queryParts.push(`types:${filters.selectedType}`);
+    if (filters.selectedSupertype) queryParts.push(`supertype:${filters.selectedSupertype}`);
+    if (filters.selectedSubtype) queryParts.push(`subtypes:"${filters.selectedSubtype}"`);
+    if (filters.selectedRarity) queryParts.push(`rarity:"${filters.selectedRarity}"`);
+    if (filters.selectedSetId) queryParts.push(`set.id:${filters.selectedSetId}`);
+    if (filters.artistName.trim()) queryParts.push(`artist:"*${filters.artistName.trim()}*"`);
+    if (filters.hpRange.min || filters.hpRange.max) {
+      queryParts.push(`hp:[${filters.hpRange.min || '*'} TO ${filters.hpRange.max || '*'}]`);
+    }
+    if (filters.retreatCostRange.min || filters.retreatCostRange.max) {
+      queryParts.push(`retreatCost:[${filters.retreatCostRange.min || '*'} TO ${filters.retreatCostRange.max || '*'}]`);
+    }
+    if (filters.attackDamageRange.min || filters.attackDamageRange.max) {
+      queryParts.push(`attacks.damage:[${filters.attackDamageRange.min || '*'} TO ${filters.attackDamageRange.max || '*'}]`);
+    }
+    if (filters.standardLegality) queryParts.push(`legalities.standard:${filters.standardLegality}`);
+    if (filters.expandedLegality) queryParts.push(`legalities.expanded:${filters.expandedLegality}`);
+    
+    const queryString = queryParts.join(' ');
+    const pageSize = 50;
+
+    try {
+      const url = `https://api.pokemontcg.io/v2/cards?q=${encodeURIComponent(queryString)}&page=${nextPage}&pageSize=${pageSize}`;
+      const response = await fetch(url, { headers: { 'X-Api-Key': '4ae3c2ac-cd50-4029-abcb-120be975891f' } });
+      const data = await response.json();
+
+      if (data.data && data.data.length > 0) {
+        setSearchResults(prevResults => [...prevResults, ...data.data]);
+        setPage(nextPage);
+        setHasMore(data.page * data.pageSize < data.totalCount);
+      } else {
+        setHasMore(false);
+      }
+    } catch (err) {
+      console.error("Erro ao carregar mais: ", err);
+    } finally {
+      setIsLoadingMore(false);
+    }
+  };
+  
+  const renderFooter = () => {
+    if (!isLoadingMore) return null;
+    return (
+      <View style={{ paddingVertical: 20 }}>
+        <ActivityIndicator animating size="large" color={PokemonTheme.colors.primary} />
+      </View>
+    );
   };
 
   const FilterPicker = ({ label, selectedValue, onValueChange, items, iconName }) => (
@@ -247,7 +300,6 @@ const AdvancedSearchScreen = ({ navigation }) => {
       >
         <StatusBar barStyle="dark-content" backgroundColor={PokemonTheme.colors.background} />
 
-        {/* Header */}
         <LinearGradient
           colors={[PokemonTheme.colors.headerGradientStart, PokemonTheme.colors.headerGradientEnd]}
           style={styles.header}
@@ -263,7 +315,6 @@ const AdvancedSearchScreen = ({ navigation }) => {
           </View>
         </LinearGradient>
 
-        {/* Conteúdo principal: Campo de busca, botões de alternância e a área de filtros/resultados */}
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           style={styles.contentWrapper}
@@ -306,7 +357,6 @@ const AdvancedSearchScreen = ({ navigation }) => {
             </View>
           </View>
 
-          {/* Renderiza a seção de filtros OU a seção de resultados */}
           {showFilters ? (
             <ScrollView
               contentContainerStyle={styles.scrollContent}
@@ -414,7 +464,6 @@ const AdvancedSearchScreen = ({ navigation }) => {
               )}
             </ScrollView>
           ) : (
-            // Resultados da busca (FlatList) - Renderizado apenas se os filtros não estiverem visíveis OU se a busca já foi tentada
             <View style={styles.resultsContainer}>
               {isLoading && searchResults.length === 0 ? (
                 <View style={styles.loadingContainer}>
@@ -444,6 +493,9 @@ const AdvancedSearchScreen = ({ navigation }) => {
                     </TouchableOpacity>
                   )}
                   contentContainerStyle={styles.resultsContent}
+                  onEndReached={handleLoadMore}
+                  onEndReachedThreshold={0.5}
+                  ListFooterComponent={renderFooter}
                 />
               ) : searchAttempted ? (
                 <View style={styles.emptyContainer}>
@@ -498,7 +550,7 @@ const styles = StyleSheet.create({
     padding: 16,
     paddingBottom: 0,
   },
-  scrollContent: { // Este é o estilo para o contentContainerStyle do ScrollView dos filtros
+  scrollContent: {
     padding: 16,
     paddingTop: 0,
     paddingBottom: 20,
@@ -643,7 +695,7 @@ const styles = StyleSheet.create({
     ...PokemonTheme.textVariants.body,
   },
   resultsContainer: {
-    flex: 1, // Permite que ocupe o espaço restante
+    flex: 1,
     backgroundColor: PokemonTheme.colors.background,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
