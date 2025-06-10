@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Animated, Easing } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Animated, Easing, Image } from 'react-native';
+import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../hooks/useAuth'; //
 import { auth } from '../../firebaseConfig';
+import { signOut } from 'firebase/auth';
 import { PokemonTheme } from '../theme/PokemonTheme';
 
-const CustomDrawer = ({ navigation }) => {
+const CustomDrawer = (props) => {
   const { user } = useAuth();
   const [rotateAnim] = useState(new Animated.Value(0));
 
@@ -32,19 +34,11 @@ const CustomDrawer = ({ navigation }) => {
 
   const handleLogout = async () => {
     try {
-      await auth.signOut();
-      navigation.navigate('Login');
+      await signOut(auth);
     } catch (error) {
-      console.error(error);
+      console.error('Erro ao fazer logout:', error);
     }
   };
-
-  const drawerItems = [
-    { icon: 'home', label: 'Início', route: 'Dashboard' },
-    { icon: 'card-search', label: 'Busca Avançada', route: 'AdvancedSearch' },
-    { icon: 'format-list-checks', label: 'Lista de Compras', route: 'ShoppingList' },
-    { icon: 'account', label: 'Perfil', route: 'Profile' },
-  ];
 
   return (
     <View style={styles.container}>
@@ -69,19 +63,9 @@ const CustomDrawer = ({ navigation }) => {
         )}
       </LinearGradient>
 
-      <View style={styles.menuItems}>
-        {drawerItems.map((item) => (
-          <TouchableOpacity
-            key={item.route}
-            style={styles.drawerItem}
-            onPress={() => navigation.navigate(item.route)}
-          >
-            <Icon name={item.icon} size={24} color={PokemonTheme.colors.primary} />
-            <Text style={styles.drawerText}>{item.label}</Text>
-            <Icon name="chevron-right" size={20} color={PokemonTheme.colors.primary} />
-          </TouchableOpacity>
-        ))}
-      </View>
+      <DrawerContentScrollView {...props} contentContainerStyle={{ flexGrow: 1 }}>
+        <DrawerItemList {...props} />
+      </DrawerContentScrollView>
 
       <TouchableOpacity
         style={[styles.drawerItem, styles.logoutButton]}
@@ -133,10 +117,6 @@ const styles = StyleSheet.create({
     color: PokemonTheme.colors.card,
     marginLeft: 10,
     ...PokemonTheme.textVariants.body,
-  },
-  menuItems: {
-    flex: 1,
-    padding: 20,
   },
   drawerItem: {
     flexDirection: 'row',
