@@ -1,125 +1,237 @@
-# Pokémon TCG Guide
+Guia Pokémon TCG
+📱 Sobre o Aplicativo
+Este é um aplicativo móvel desenvolvido com React Native para fãs do Pokémon Trading Card Game (TCG). Ele oferece um conjunto abrangente de recursos para aprimorar sua experiência de colecionador:
 
-## 📱 Sobre o App
+🔍 Busca de Cartas Pokémon TCG: Capacidades de busca avançada para encontrar cartas específicas.
 
-Aplicativo móvel em **React Native** para fãs do Pokémon Trading Card Game (TCG) com:
+⭐ Gerenciamento de Lista de Desejos: Acompanhe as cartas que você deseja adquirir.
 
-* 🔍 Busca de cartas Pokémon TCG
-* ⭐ Gerenciamento de lista de desejos
-* 🔐 Autenticação de usuário
-* 👤 Perfil personalizado
+🔐 Autenticação de Usuário: Login e registro seguros impulsionados pelo Firebase.
 
-## ✨ Funcionalidades
+👤 Perfil Personalizado: Gerencie suas informações de usuário.
 
-### 🔒 Autenticação
+✨ Funcionalidades
+🔒 Autenticação
+Login e registro usando Firebase.
 
-* Login com Firebase
-* Gerenciamento de perfil
+Opção de login como convidado.
 
-### 🃏 Cartas Pokémon
+Funcionalidade de redefinição de senha.
 
-* Busca avançada de cartas
-* Visualização detalhada
-* Favoritos
+Gerenciamento de perfil de usuário.
 
-### 🛒 Lista de Compras
+🃏 Cartas Pokémon
+Busca Avançada de Cartas: Filtre cartas por nome, tipo, supertipo, subtipo, raridade, coleção, artista, faixa de HP, custo de recuo e dano de ataque.
 
-* Adicionar/remover cartas
-* Organizar por prioridade
+Visualização Detalhada: Veja informações abrangentes para cada carta, incluindo imagens, detalhes da coleção, raridade, tipos, ataques, fraquezas, resistências e texto de sabor.
 
-### 🗺️ Navegação
+Preços do TCGPlayer: Visualize dados de preços em tempo real para as cartas (implementação conceitual, requer integração de API para funcionalidade completa).
 
-* Menu lateral (*drawer*)
-* Navegação intuitiva
+🛒 Lista de Compras
+Adicione e remova cartas da sua lista de compras pessoal.
 
-## 🛠️ Instalação
+Marque cartas como compradas.
 
-### Pré-requisitos
+Visualize sua lista de compras, organizada por status de compra.
 
-* Node.js v18+
-* Expo CLI:
+🗺️ Navegação
+Navegação por Abas: Acesso fácil às seções principais como Início, Busca, Lista e Perfil.
 
-  ```bash
-  npm install -g expo-cli
-  ```
-* Conta no Firebase
+Navegação Lateral (Drawer): Um menu lateral oferece opções de navegação adicionais. Para acessar o menu lateral, basta arrastar da borda esquerda da tela.
 
-### Passo a Passo
+🛠️ Instalação
+Pré-requisitos
+Node.js v18+
 
+Expo CLI:
+
+npm install -g expo-cli
+
+
+Um projeto Firebase configurado para autenticação (E-mail/Senha, Anônimo) e Firestore.
+
+Passo a Passo
 Clone o repositório:
 
-```bash
 git clone https://github.com/IgorNachiS/pokemontcgguide
 cd pokemontcgguide
-```
+
 
 Instale as dependências:
 
-```bash
 npm install
 # ou
 yarn install
-```
+
 
 Configure o Firebase:
-Crie um arquivo `firebaseConfig.js` na raiz do projeto com suas credenciais do Firebase:
+Crie um arquivo firebaseConfig.js na raiz do seu projeto com suas credenciais do Firebase.
 
-```js
 // firebaseConfig.js
 import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
+import { initializeAuth, getReactNativePersistence } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const firebaseConfig = {
-  apiKey: "sua-chave",
-  authDomain: "seu-app.firebaseapp.com",
-  projectId: "seu-projeto",
-  storageBucket: "seu-app.appspot.com",
-  messagingSenderId: "123456789",
-  appId: "1:123456789:web:abcdef123456"
+  apiKey: "SUA_API_KEY", // Substitua pela sua chave de API real
+  authDomain: "SEU_DOMINIO_DE_AUTENTICACAO", // Substitua pelo seu domínio de autenticação real
+  projectId: "SEU_ID_DO_PROJETO", // Substitua pelo seu ID de projeto real
+  storageBucket: "SEU_STORAGE_BUCKET", // Substitua pelo seu Storage Bucket real
+  messagingSenderId: "SEU_MESSAGING_SENDER_ID", // Substitua pelo seu Messaging Sender ID real
+  appId: "SEU_APP_ID" // Substitua pelo seu App ID real
 };
 
 const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const db = getFirestore(app);
-```
 
-## 🚀 Como Executar
+const auth = initializeAuth(app, {
+  persistence: getReactNativePersistence(AsyncStorage)
+});
 
-```bash
+const db = getFirestore(app);
+
+export { auth, db };
+
+
+(Nota: O app.json também contém algumas configurações do Firebase, certifique-se de que elas correspondam ao projectId e authDomain do seu projeto.)
+
+🚀 Como Executar
 npx expo start --offline
-```
 
-Escaneie o QR code com o aplicativo **Expo Go** (dispositivo físico) ou pressione:
 
-* `a` para Android Emulator
-* `i` para iOS Simulator
+Após executar o comando, escaneie o código QR com o aplicativo Expo Go em um dispositivo físico, ou pressione:
 
-## 📂 Estrutura de Arquivos
+a para Emulador Android
 
-```
+i para Simulador iOS
+
+📂 Estrutura de Arquivos
 .
 ├── src/
 │   ├── assets/          # Ícones e imagens
-│   ├── components/      # Componentes reutilizáveis
-│   ├── contexts/        # Contextos do React
-│   ├── hooks/           # Custom hooks
-│   ├── navigation/      # Configuração de navegação
-│   ├── screens/         # Telas do app
-│   ├── services/        # API e serviços
-│   ├── styles/          # Estilos globais
-│   └── utils/           # Utilitários
-├── App.js               # Entrada principal
+│   ├── components/      # Componentes de UI reutilizáveis (ex: CardItem, CustomDrawer, LoadingIndicator)
+│   ├── contexts/        # Contextos React (se implementados para estado global)
+│   ├── hooks/           # Hooks React personalizados (ex: useAuth, useCards)
+│   ├── navigation/      # Configuração de navegação (AppNavigator, DrawerNavigator)
+│   ├── screens/         # Telas principais do aplicativo (LoginScreen, DashboardScreen, AdvancedSearchScreen, CardDetailScreen, ProfileScreen, ShoppingListScreen)
+│   ├── services/        # API e outros serviços (ex: para busca de dados, não explicitamente fornecido mas boa prática)
+│   ├── styles/          # Estilos globais (ex: tema Pokémon específico)
+│   └── utils/           # Funções utilitárias
+├── App.js               # Ponto de entrada principal do aplicativo
 └── firebaseConfig.js    # Configuração do Firebase
-```
 
-## 📦 Dependências Principais
 
-| Pacote            | Versão   | Uso                  |
-| ----------------- | -------- | -------------------- |
-| react-native      | 0.72+    | Framework base       |
-| expo              | \~48.0.0 | Plataforma Expo      |
-| @react-navigation | ^6.x     | Navegação            |
-| firebase          | ^9.0+    | Autenticação e banco |
-| axios             | ^1.0+    | Requisições HTTP     |
-| nativewind        | ^2.0+    | Estilização          |
+📦 Dependências Principais
+Pacote
+
+Versão
+
+Uso
+
+react-native
+
+0.79.2
+
+Estrutura base para desenvolvimento de apps móveis
+
+expo
+
+~53.0.9
+
+Plataforma para construir apps React universais
+
+@react-navigation
+
+^7.x
+
+Roteamento e navegação para apps React Native
+
+firebase
+
+^11.8.1
+
+Autenticação e banco de dados Firestore
+
+@react-native-async-storage/async-storage
+
+2.1.2
+
+Armazenamento assíncrono persistente chave-valor
+
+@react-native-picker/picker
+
+^2.11.0
+
+Componente nativo de picker
+
+expo-linear-gradient
+
+~14.1.4
+
+Componente de gradiente linear
+
+expo-status-bar
+
+~2.2.3
+
+Gerencia a aparência da barra de status nativa
+
+react-native-paper
+
+^5.14.5
+
+Material Design para React Native
+
+react-native-gesture-handler
+
+~2.24.0
+
+Gerenciamento de gestos nativo
+
+react-native-reanimated
+
+~3.17.4
+
+Biblioteca de animação de baixo nível
+
+react-native-safe-area-context
+
+5.4.0
+
+Lida com insets de área segura para iOS/Android
+
+react-native-screens
+
+~4.10.0
+
+Primitivos nativos para navegação
+
+react-native-svg
+
+15.11.2
+
+Renderiza imagens SVG em React Native
+
+react-native-vector-icons
+
+^10.2.0
+
+Ícones personalizáveis para React Native
+
+lottie-react-native
+
+7.2.2
+
+Renderiza animações do After Effects
+
+@babel/core
+
+^7.20.0
+
+Compilador JavaScript
+
+react-native-svg-transformer
+
+^1.5.1
+
+Transforma arquivos SVG em componentes React Native
