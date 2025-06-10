@@ -2,21 +2,14 @@
 
 Este é um aplicativo móvel desenvolvido com React Native para fãs do Pokémon Trading Card Game (TCG). Ele oferece um conjunto abrangente de recursos para aprimorar sua experiência de colecionador:
 
-### 🔍 Busca de Cartas Pokémon TCG
+🔍 **Busca de Cartas Pokémon TCG:** Capacidades de busca avançada para encontrar cartas específicas.
+⭐ **Gerenciamento de Lista de Desejos:** Acompanhe as cartas que você deseja adquirir.
+🔐 **Autenticação de Usuário:** Login e registro seguros impulsionados pelo Firebase.
+👤 **Perfil Personalizado:** Gerencie suas informações de usuário.
 
-Capacidades de busca avançada para encontrar cartas específicas.
+> ✨ *Observação: O menu lateral aparece após fazer um gesto de arrastar a partir da borda esquerda da tela.*
 
-### ⭐ Gerenciamento de Lista de Desejos
-
-Acompanhe as cartas que você deseja adquirir.
-
-### 🔐 Autenticação de Usuário
-
-Login e registro seguros impulsionados pelo Firebase.
-
-### 👤 Perfil Personalizado
-
-Gerencie suas informações de usuário.
+> 🌐 *Nota sobre o idioma: A aplicação possui partes em inglês e partes em português. Isso se deve ao crescente interesse e valorização das cartas em inglês no Brasil, que geralmente são mais caras e populares. O uso do idioma original auxilia na identificação correta das cartas, prevenção de falsificações e na segurança contra golpes.*
 
 ---
 
@@ -31,9 +24,9 @@ Gerencie suas informações de usuário.
 
 ### 🃏 Cartas Pokémon
 
-* **Busca Avançada de Cartas**: Filtre cartas por nome, tipo, supertipo, subtipo, raridade, coleção, artista, faixa de HP, custo de recuo e dano de ataque.
-* **Visualização Detalhada**: Veja informações abrangentes para cada carta, incluindo imagens, detalhes da coleção, raridade, tipos, ataques, fraquezas, resistências e texto de sabor.
-* **Preços do TCGPlayer**: Visualize dados de preços em tempo real para as cartas (implementação conceitual, requer integração de API para funcionalidade completa).
+* **Busca Avançada de Cartas:** Filtre cartas por nome, tipo, supertipo, subtipo, raridade, coleção, artista, faixa de HP, custo de recuo e dano de ataque.
+* **Visualização Detalhada:** Veja informações abrangentes para cada carta, incluindo imagens, detalhes da coleção, raridade, tipos, ataques, fraquezas, resistências e texto de sabor.
+* **Preços do TCGPlayer:** Visualize dados de preços em tempo real para as cartas (implementação conceitual, requer integração de API para funcionalidade completa).
 
 ### 🛒 Lista de Compras
 
@@ -41,12 +34,10 @@ Gerencie suas informações de usuário.
 * Marque cartas como compradas.
 * Visualize sua lista de compras, organizada por status de compra.
 
-### 🗸️ Navegação
+### 🗺️ Navegação
 
-* **Navegação por Abas**: Acesso fácil às seções principais como Início, Busca, Lista e Perfil.
-* **Navegação Lateral (Drawer)**: Um menu lateral oferece opções de navegação adicionais.
-
-  > ✨ *Observação: O menu lateral aparece após fazer um gesto de arrastar a partir da borda esquerda da tela.*
+* **Navegação por Abas:** Acesso fácil às seções principais como Início, Busca, Lista e Perfil.
+* **Navegação Lateral (Drawer):** Um menu lateral oferece opções de navegação adicionais. Para acessar o menu lateral, basta arrastar da borda esquerda da tela.
 
 ---
 
@@ -80,8 +71,9 @@ npm install
 yarn install
 ```
 
-Configure o Firebase:
-Crie um arquivo `firebaseConfig.js` na raiz do seu projeto com suas credenciais do Firebase.
+### Configure o Firebase
+
+Crie um arquivo `firebaseConfig.js` na raiz do seu projeto com suas credenciais do Firebase:
 
 ```js
 // firebaseConfig.js
@@ -110,7 +102,7 @@ const db = getFirestore(app);
 export { auth, db };
 ```
 
-> 📆 **Nota**: O `app.json` também contém algumas configurações do Firebase, certifique-se de que elas correspondam ao `projectId` e `authDomain` do seu projeto.
+> 📌 *Nota: O `app.json` também contém algumas configurações do Firebase. Certifique-se de que elas correspondam ao `projectId` e `authDomain` do seu projeto.*
 
 ---
 
@@ -165,28 +157,28 @@ Após executar o comando, escaneie o código QR com o aplicativo **Expo Go** em 
 
 ## 📦 Dependências Principais
 
-| Pacote                                    | Versão    | Uso                                        |
-| ----------------------------------------- | --------- | ------------------------------------------ |
-| @expo/vector-icons                        | ^14.0.0   | Ícones para Expo e React Native            |
-| @react-native-async-storage/async-storage | 1.21.0    | Armazenamento assíncrono persistente       |
-| @react-native-picker/picker               | 2.6.1     | Componente nativo de picker                |
-| @react-navigation/bottom-tabs             | ^6.5.20   | Navegação por abas                         |
-| @react-navigation/drawer                  | ^6.6.15   | Navegação lateral (drawer)                 |
-| @react-navigation/native                  | ^6.1.17   | Core de navegação                          |
-| @react-navigation/native-stack            | ^6.9.26   | Navegação baseada em pilha                 |
-| expo                                      | \~50.0.14 | Plataforma React Native                    |
-| expo-linear-gradient                      | \~12.7.2  | Componente de gradiente linear             |
-| expo-status-bar                           | \~1.11.1  | Barra de status nativa                     |
-| firebase                                  | ^10.8.1   | Autenticação e Firestore                   |
-| lottie-react-native                       | 6.3.0     | Animações Lottie                           |
-| react                                     | 18.2.0    | Biblioteca React                           |
-| react-native                              | 0.73.6    | Framework base                             |
-| react-native-gesture-handler              | \~2.14.0  | Gestos nativos                             |
-| react-native-paper                        | ^5.12.3   | Componentes Material Design                |
-| react-native-reanimated                   | \~3.6.2   | Animações de baixo nível                   |
-| react-native-safe-area-context            | 4.8.2     | Insets de área segura                      |
-| react-native-screens                      | \~3.29.0  | Primitivos nativos de navegação            |
-| react-native-svg                          | 14.1.0    | Renderiza imagens SVG                      |
-| react-native-vector-icons                 | ^10.0.3   | Ícones personalizados                      |
-| @babel/core                               | ^7.20.0   | Compilador JavaScript                      |
-| react-native-svg-transformer              | ^1.3.0    | Transforma SVG em componentes React Native |
+| Pacote                                    | Versão    | Uso                                                        |
+| ----------------------------------------- | --------- | ---------------------------------------------------------- |
+| @expo/vector-icons                        | ^14.0.0   | Ícones para Expo e React Native                            |
+| @react-native-async-storage/async-storage | 1.21.0    | Armazenamento assíncrono persistente chave-valor           |
+| @react-native-picker/picker               | 2.6.1     | Componente nativo de picker (seleção)                      |
+| @react-navigation/bottom-tabs             | ^6.5.20   | Navegação por abas na parte inferior                       |
+| @react-navigation/drawer                  | ^6.6.15   | Navegação lateral (drawer)                                 |
+| @react-navigation/native                  | ^6.1.17   | Core do React Navigation para navegação                    |
+| @react-navigation/native-stack            | ^6.9.26   | Navegação baseada em pilha para React Native               |
+| expo                                      | \~50.0.14 | Plataforma para construir apps React universais            |
+| expo-linear-gradient                      | \~12.7.2  | Componente de gradiente linear                             |
+| expo-status-bar                           | \~1.11.1  | Gerencia a aparência da barra de status nativa             |
+| firebase                                  | ^10.8.1   | Autenticação e banco de dados Firestore                    |
+| lottie-react-native                       | 6.3.0     | Renderiza animações Lottie (After Effects)                 |
+| react                                     | 18.2.0    | Biblioteca JavaScript para construir interfaces de usuário |
+| react-native                              | 0.73.6    | Estrutura base para desenvolvimento de apps móveis         |
+| react-native-gesture-handler              | \~2.14.0  | Gerenciamento de gestos nativo                             |
+| react-native-paper                        | ^5.12.3   | Material Design para React Native                          |
+| react-native-reanimated                   | \~3.6.2   | Biblioteca de animação de baixo nível                      |
+| react-native-safe-area-context            | 4.8.2     | Lida com insets de área segura para iOS/Android            |
+| react-native-screens                      | \~3.29.0  | Primitivos nativos para navegação                          |
+| react-native-svg                          | 14.1.0    | Renderiza imagens SVG em React Native                      |
+| react-native-vector-icons                 | ^10.0.3   | Ícones personalizáveis para React Native                   |
+| @babel/core                               | ^7.20.0   | Compilador JavaScript                                      |
+| react-native-svg-transformer              | ^1.3.0    | Transforma arquivos SVG em componentes React Native        |
